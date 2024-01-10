@@ -6,7 +6,7 @@ const db = new sqlite3.Database('./Database/Book.sqlite');
 
 app.use(express.json());
 
-db.run(`CREATE TABLE IF NOT EXISTS books (
+db.run(`'CREATE TABLE IF NOT EXISTS books (
     id INTEGER PRIMARY KEY,
     title TEXT,
     author TEXT
@@ -36,9 +36,9 @@ app.get('/books/:id', (req,res) =>{
     });
 });
 
-app.post('/books', (req,res) =>{
+app.post('/books/:id', (req,res) =>{
     const book = req.body;
-    db.run('INSERT INTO books (title, author) VALUES (?, ?)', book.title, book.author, function(err){
+    db.run('INSERT INTO books (title, author) VALUE (?,?)', book.title, book.author, function(err){
         if(err){
             res.status(500).send(err);
         } else {
